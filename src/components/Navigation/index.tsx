@@ -12,6 +12,7 @@ import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/sty
 import { NavigationListItems } from "./NavigationListItems";
 import { useLocation } from 'react-router-dom'
 import { getPageTitle } from "../../utils/PageData";
+import { Helmet } from "react-helmet";
 
 const drawerWidth = 240;
 
@@ -76,6 +77,10 @@ export const Navigation = (props: Props) => {
 
   return (
     <div className={classes.root}>
+      <Helmet>
+        <title>{getPageTitle(location.pathname)}</title>
+      </Helmet>
+
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>

@@ -5,6 +5,6 @@ export const getPageTitle = (uri: string) => {
     case '/properties':
       return 'Properties';
     default:
-      return '';
+      return 'Elogbooks';
   }
 }
