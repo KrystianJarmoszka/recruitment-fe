@@ -33,20 +33,13 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: drawerWidth,
       },
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up('sm')]: {
-        display: 'none',
-      },
-    },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
       width: drawerWidth,
     },
     content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
+      flexGrow: 1
     },
   }),
 );
@@ -89,7 +82,6 @@ export const Navigation = (props: Props) => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            className={classes.menuButton}
           >
             <MenuIcon />
           </IconButton>
