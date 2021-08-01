@@ -11,17 +11,13 @@ export const JobView = () => {
   const [job, setJob] = useState<Job | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true)
 
-
   useEffect(() => {
     getJob(id).then((response: AxiosResponse) => {
-      console.log('response', response);
-
       if (response?.data) {
         setJob(response.data);
         setLoading(false)
       }
     }).catch(() => {
-      console.log('catch');
       setLoading(false)
     })
   }, []);
@@ -40,7 +36,23 @@ export const JobView = () => {
         <title>{job.summary}</title>
 
       </Helmet>
-      {job && job.summary}
+
+      <div>
+        <h1>{job.summary}</h1>
+
+        {job.description && <p>{job.description}</p>}
+
+        <div>
+          <span>Status:</span> {job.status}
+        </div>
+
+        <div>
+          <span>Raised by:</span> {job.raised_by}
+        </div>
+        <div>
+          <span>Property:</span> {job.property.name}
+        </div>
+      </div>
     </div>
   );
 }

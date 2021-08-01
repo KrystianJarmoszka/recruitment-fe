@@ -13,8 +13,6 @@ export const JobList = () => {
 
   useEffect(() => {
     getJobs().then((response: AxiosResponse) => {
-      console.log('response', response);
-
       if (response?.data?.length > 0) {
         setJobs(response.data);
       }
@@ -23,10 +21,6 @@ export const JobList = () => {
 
   const removeJob = (id: number, index: number) => {
     deleteJob(id).then((response: AxiosResponse) => {
-      console.log('Delete response', response);
-      console.log('index:', index);
-      console.log('response.status:', response.status);
-
       if (response.status === 204) {
         jobs.splice(index, 1);
         setJobs([...jobs]);
@@ -43,7 +37,9 @@ export const JobList = () => {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
+                <TableCell align="center">ID</TableCell>
                 <TableCell align="center">Summary</TableCell>
+                <TableCell align="center">Status</TableCell>
                 <TableCell align="center">Property</TableCell>
                 <TableCell align="center">Raised by</TableCell>
                 <TableCell align="center">Action</TableCell>
@@ -53,7 +49,13 @@ export const JobList = () => {
               {jobs.map((job: Job, index: number) => (
                 <TableRow key={job.id}>
                   <TableCell align="center" component="th" scope="row">
+                    {job.id}
+                  </TableCell>
+                  <TableCell align="center" component="th" scope="row">
                     {job.summary}
+                  </TableCell>
+                  <TableCell align="center" component="th" scope="row">
+                    {job.status}
                   </TableCell>
                   <TableCell align="center" component="th" scope="row">
                     {job.property.name}
