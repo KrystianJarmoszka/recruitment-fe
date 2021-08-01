@@ -13,3 +13,9 @@ export interface Job {
 export interface JobParams {
   id: string
 }
+
+export interface JobsState {
+  items: Job[],
+  status: 'idle' | 'loading' | 'succeeded' | 'failed',
+  error: string | null
+}
