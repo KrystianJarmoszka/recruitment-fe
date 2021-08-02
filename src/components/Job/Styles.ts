@@ -13,5 +13,10 @@ export const useStyles = makeStyles({
     height: '150px',
     display: 'flex',
     alignItems: 'center',
+  },
+  addEditForm: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '30%',
   }
 });

@@ -4,8 +4,10 @@ import { getJob } from '../../api';
 import { AxiosResponse } from 'axios';
 import { Job } from '../../interfaces/Job';
 import { Helmet } from 'react-helmet';
-import { CircularProgress } from '@material-ui/core';
+import {Button, CircularProgress} from '@material-ui/core';
 import { ViewParams } from '../../interfaces/General';
+import { Link } from "react-router-dom";
+import { Edit } from "@material-ui/icons";
 
 export const JobView = () => {
   const { id } = useParams<ViewParams>();
@@ -31,28 +33,41 @@ export const JobView = () => {
     return <CircularProgress />
   }
 
+  const { summary, description, status, raised_by, property } = job;
+
   return (
     <div>
       <Helmet>
-        <title>{job.summary}</title>
+        <title>{summary}</title>
 
       </Helmet>
 
       <div>
-        <h1>{job.summary}</h1>
+        <h1>{summary}</h1>
 
-        {job.description && <p>{job.description}</p>}
+        {description && <p>{description}</p>}
 
         <div>
-          <span>Status:</span> {job.status}
+          <span>Status:</span> {status}
         </div>
 
         <div>
-          <span>Raised by:</span> {job.raised_by}
+          <span>Raised by:</span> {raised_by}
         </div>
         <div>
-          <span>Property:</span> {job.property.name}
+          <span>Property:</span> {property.name}
         </div>
+
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          component={Link}
+          to={`/job/${id}/edit`}
+          startIcon={<Edit />}
+        >
+          Edit job
+        </Button>
       </div>
     </div>
   );
