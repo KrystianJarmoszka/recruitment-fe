@@ -4,7 +4,7 @@ import { getJob } from '../../api';
 import { AxiosResponse } from 'axios';
 import { Job } from '../../interfaces/Job';
 import { Helmet } from 'react-helmet';
-import {Button, CircularProgress} from '@material-ui/core';
+import { Button, CircularProgress } from '@material-ui/core';
 import { ViewParams } from '../../interfaces/General';
 import { Link } from "react-router-dom";
 import { Edit } from "@material-ui/icons";
