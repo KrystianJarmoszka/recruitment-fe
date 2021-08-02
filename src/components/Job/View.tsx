@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react';
 import { useParams } from "react-router";
 import { getJob } from "../../api";
 import { AxiosResponse } from "axios";
-import { Job, JobParams } from "../../interfaces/Job";
+import { Job } from "../../interfaces/Job";
 import { Helmet } from "react-helmet";
 import { CircularProgress } from "@material-ui/core";
+import { ViewParams } from "../../interfaces/General";
 
 export const JobView = () => {
-  const { id } = useParams<JobParams>();
+  const { id } = useParams<ViewParams>();
   const [job, setJob] = useState<Job | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true)
 

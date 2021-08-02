@@ -5,12 +5,6 @@ export const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
-    flexDirection: 'column',
+    height: '100%'
   },
-  missingJobs: {
-    height: '150px',
-    display: 'flex',
-    alignItems: 'center',
-  }
 });

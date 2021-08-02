@@ -1,71 +1,151 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { deleteJob } from "../../api";
 import { AxiosResponse } from "axios";
-import {TableContainer, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress} from '@material-ui/core';
-import { Job, JobsState } from "../../interfaces/Job";
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  CircularProgress,
+  TextField,
+  MenuItem
+} from '@material-ui/core';
+import {Job, JobFilterParams, JobsState} from "../../interfaces/Job";
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from '@material-ui/icons/Info';
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchJobs, selectAllJobs} from "../../redux/reducers/jobsSlice";
+import {fetchJobs, setKeyWord, setOrder} from "../../redux/reducers/JobsSlice";
 import { useStyles } from "./Styles";
+import Pagination from "@material-ui/lab/Pagination";
 
 export const JobList = () => {
-  const jobs = useSelector(selectAllJobs);
-  const jobsStatus = useSelector((state: { jobs: JobsState }) => state.jobs.status);
+  const { items: jobs, page, pages, status, keyWord, order } = useSelector(
+    (state: { jobs: JobsState }) => state.jobs
+  );
+  const [searchKeyWord, setSearchKeyWord] = useState<string>(keyWord);
+  const [orderDirection, setOrderDirection] = useState<string>(order);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (keyWord !== searchKeyWord) {
+        dispatch(fetchJobs(getQueryParams()));
+        dispatch(setKeyWord(searchKeyWord));
+      }
+    }, 1200)
+
+    return () => clearTimeout(delayDebounceFn)
+  }, [searchKeyWord])
+
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
-    if (jobsStatus === 'idle') {
-      dispatch(fetchJobs());
+    if (status === 'idle') {
+      dispatch(fetchJobs(getQueryParams()));
     }
-  }, [jobsStatus, dispatch]);
+  }, [status, dispatch]);
 
-  const removeJob = (id: number, index: number) => {
+  useEffect(() => {
+    dispatch(fetchJobs(getQueryParams()));
+    dispatch(setOrder(orderDirection));
+  }, [orderDirection, dispatch]);
+
+  const removeJob = (id: number) => {
     deleteJob(id).then((response: AxiosResponse) => {
       if (response.status === 204) {
-        jobs.splice(index, 1);
+        dispatch(fetchJobs(getQueryParams()));
       }
     });
   }
 
-  if (jobsStatus === 'loading') {
+  const handlePaginationChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    dispatch(fetchJobs(getQueryParams(page)));
+  }
+
+  const handleOrderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const order = e.target.value;
+    setOrderDirection(order);
+  }
+
+  const getQueryParams = (newPage: number = page) => {
+    const params: JobFilterParams = {
+      page: newPage,
+      order: orderDirection
+    }
+
+    if (searchKeyWord) {
+      params.summary = searchKeyWord
+    }
+
+    return params;
+  }
+
+  if (status === 'loading') {
     return (<div className={classes.container}>
       <CircularProgress />
     </div>)
   }
 
-  if (jobsStatus === 'failed') {
+  if (status === 'failed') {
     return <div className={classes.container}>Something went wrong.</div>
   }
 
   return (
     <div>
-      {jobs.length === 0 && <span>No jobs found</span>}
+      <div className={classes.container}>
+        <div>
+          <form noValidate autoComplete="off">
+            <TextField
+              id="keyword"
+              label="Type to search"
+              value={searchKeyWord}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchKeyWord(e.target.value)}
+            />
+
+            <TextField
+              id="order-direction"
+              select
+              label="Order"
+              value={orderDirection}
+              onChange={handleOrderChange}
+              helperText="Please select order direction"
+            >
+              <MenuItem key={'newest'} value={'1'}>newest</MenuItem>
+              <MenuItem key={'oldest'} value={'-1'}>oldest</MenuItem>
+            </TextField>
+          </form>
+        </div>
+
+        {jobs.length === 0 && (<div className={classes.missingJobs}>
+          <span>No jobs found</span>
+        </div>)}
+      </div>
 
       {jobs.length > 0 && (<div>
         <TableContainer>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">ID</TableCell>
-                <TableCell align="center">Summary</TableCell>
-                <TableCell align="center">Status</TableCell>
-                <TableCell align="center">Property</TableCell>
-                <TableCell align="center">Raised by</TableCell>
-                <TableCell align="center">Action</TableCell>
+                {['ID', 'Summary', 'Description', 'Status', 'Property', 'Raised by', 'Action'].map((ceilTitle: string) => (
+                  <TableCell key={ceilTitle} align="center">{ceilTitle}</TableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>
-              {jobs.map((job: Job, index: number) => (
+              {jobs.map((job: Job) => (
                 <TableRow key={job.id}>
                   <TableCell align="center" component="th" scope="row">
                     {job.id}
                   </TableCell>
                   <TableCell align="center" component="th" scope="row">
                     {job.summary}
+                  </TableCell>
+                  <TableCell align="center" component="th" scope="row">
+                    {job.description.length > 5 ? `${job.description.slice(0, 5)}...` : job.description}
                   </TableCell>
                   <TableCell align="center" component="th" scope="row">
                     {job.status}
@@ -80,7 +160,7 @@ export const JobList = () => {
                     <IconButton component={Link} to={`/job/${job.id}`}>
                       <InfoIcon color="primary" />
                     </IconButton>
-                    <IconButton onClick={() => { removeJob(job.id, index) }}>
+                    <IconButton onClick={() => { removeJob(job.id) }}>
                       <DeleteIcon color="secondary" />
                     </IconButton>
                   </TableCell>
@@ -89,6 +169,10 @@ export const JobList = () => {
             </TableBody>
           </Table>
         </TableContainer>
+
+        <div className={classes.container}>
+          <Pagination count={pages} page={page} onChange={handlePaginationChange} />
+        </div>
       </div>)}
     </div>
   );
