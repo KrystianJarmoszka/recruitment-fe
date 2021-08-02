@@ -148,7 +148,7 @@ export const AddEditJobView = () => {
                 size="large"
                 type="submit"
               >
-                {id ? 'Edit job' : 'Add job'}
+                Save
               </Button>
             </div>
           </Form>

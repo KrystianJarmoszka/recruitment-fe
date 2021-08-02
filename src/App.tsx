@@ -4,6 +4,7 @@ import { JobList, JobView } from './components/Job';
 import { PropertyList, PropertyView } from './components/Property';
 import { Navigation } from './components/Navigation';
 import { AddEditJobView } from './components/Job/AddEdit/AddEdit';
+import { NotFound } from './components/NotFound';
 
 const App = () => (
   <Router>
@@ -16,6 +17,7 @@ const App = () => (
         <Route exact path="/job/:id" component={ JobView } />
         <Route exact path="/properties" component={ PropertyList } />
         <Route exact path="/property/:id" component={ PropertyView } />
+        <Route component={ NotFound } />
       </Switch>
     }/>
   </Router>

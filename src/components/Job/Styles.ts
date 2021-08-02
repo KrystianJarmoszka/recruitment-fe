@@ -23,5 +23,8 @@ export const useStyles = makeStyles({
   },
   addEditFormButton: {
     marginTop: '15px',
+  },
+  viewContainer: {
+    marginLeft: '25px',
   }
 });
