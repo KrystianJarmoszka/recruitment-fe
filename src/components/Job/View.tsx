@@ -6,13 +6,16 @@ import { Job } from '../../interfaces/Job';
 import { Helmet } from 'react-helmet';
 import { Button, CircularProgress } from '@material-ui/core';
 import { ViewParams } from '../../interfaces/General';
-import { Link } from "react-router-dom";
-import { Edit } from "@material-ui/icons";
+import { Link } from 'react-router-dom';
+import { Edit } from '@material-ui/icons';
+import { useStyles } from './Styles';
 
 export const JobView = () => {
   const { id } = useParams<ViewParams>();
   const [job, setJob] = useState<Job | undefined>(undefined);
-  const [loading, setLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const classes = useStyles();
 
   useEffect(() => {
     getJob(id).then((response: AxiosResponse) => {
@@ -36,7 +39,7 @@ export const JobView = () => {
   const { summary, description, status, raised_by, property } = job;
 
   return (
-    <div>
+    <div className={classes.viewContainer}>
       <Helmet>
         <title>{summary}</title>
 
@@ -58,16 +61,18 @@ export const JobView = () => {
           <span>Property:</span> {property.name}
         </div>
 
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          component={Link}
-          to={`/job/${id}/edit`}
-          startIcon={<Edit />}
-        >
-          Edit job
-        </Button>
+        <div className={classes.addEditFormButton}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            component={Link}
+            to={`/job/${id}/edit`}
+            startIcon={<Edit />}
+          >
+            Edit job
+          </Button>
+        </div>
       </div>
     </div>
   );

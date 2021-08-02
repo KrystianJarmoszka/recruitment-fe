@@ -10,9 +10,10 @@ export const JobSchema = Yup.object().shape({
     .max(500, 'Too Long!'),
   status: Yup.string()
     .required('Required'),
-  raised_by: Yup.string()
+  raisedBy: Yup.string()
     .min(3, 'Too Short!')
-    .max(50, 'Too Long!'),
+    .max(50, 'Too Long!')
+    .required('Required'),
   property: Yup.number()
     .required('Required'),
 });
