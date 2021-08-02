@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import { useParams } from "react-router";
-import { getProperty} from "../../api";
-import { AxiosResponse } from "axios";
-import { Helmet } from "react-helmet";
-import { CircularProgress } from "@material-ui/core";
-import { ViewParams } from "../../interfaces/General";
-import { Property } from "../../interfaces/Property";
+import { useParams } from 'react-router';
+import { getProperty} from '../../api';
+import { AxiosResponse } from 'axios';
+import { Helmet } from 'react-helmet';
+import { CircularProgress } from '@material-ui/core';
+import { ViewParams } from '../../interfaces/General';
+import { Property } from '../../interfaces/Property';
 
 export const PropertyView = () => {
   const { id } = useParams<ViewParams>();

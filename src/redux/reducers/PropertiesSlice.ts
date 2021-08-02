@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getProperties } from "../../api";
-import { PropertiesState } from "../../interfaces/Property";
-import {JobsState} from "../../interfaces/Job";
+import { getProperties } from '../../api';
+import { PropertiesState } from '../../interfaces/Property';
 
 const initialState: PropertiesState = {
   items: [],

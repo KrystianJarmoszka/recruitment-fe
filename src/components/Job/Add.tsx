@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { useParams } from "react-router";
-import { NewJob} from "../../interfaces/Job";
-import { ViewParams } from "../../interfaces/General";
+import { useParams } from 'react-router';
+import { NewJob} from '../../interfaces/Job';
+import { ViewParams } from '../../interfaces/General';
 
 export const AddEditJobView = () => {
   const { id } = useParams<ViewParams>();
