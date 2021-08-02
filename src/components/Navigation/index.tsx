@@ -13,7 +13,7 @@ import { NavigationListItems } from './NavigationListItems';
 import { useLocation } from 'react-router-dom'
 import { getPageTitle } from '../../utils/PageData';
 import { Helmet } from 'react-helmet';
-import { ComponentProps } from "../../interfaces/Navigation";
+import { ComponentProps } from '../../interfaces/Navigation';
 import { useStyles } from './Styles';
 
 export const Navigation = (props: ComponentProps) => {

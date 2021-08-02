@@ -22,7 +22,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {fetchJobs, setKeyWord, setOrder} from '../../redux/reducers/JobsSlice';
 import { useStyles } from './Styles';
 import Pagination from '@material-ui/lab/Pagination';
-import { ControlPoint } from "@material-ui/icons";
+import { ControlPoint } from '@material-ui/icons';
 
 export const JobList = () => {
   const { items: jobs, page, pages, status, keyWord, order } = useSelector(

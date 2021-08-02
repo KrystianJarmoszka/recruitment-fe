@@ -1,6 +1,6 @@
-import axios from "axios";
-import { BASE_URL } from "../constants/ApiConfig";
-import { JobFilterParams, JobForm } from "../interfaces/Job";
+import axios from 'axios';
+import { BASE_URL } from '../constants/ApiConfig';
+import { JobFilterParams, JobForm } from '../interfaces/Job';
 
 export const getJobs = (params: JobFilterParams = { page: 1, order: '1' }) => {
   const { page = 1, summary, order = '1' } = params;

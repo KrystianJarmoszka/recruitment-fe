@@ -1,4 +1,4 @@
-import { JobStatusForm } from "../interfaces/Job";
+import { JobStatusForm } from '../interfaces/Job';
 
 export const STATUS_OPEN = 'open';
 export const STATUS_IN_PROGRESS = 'in_progress';

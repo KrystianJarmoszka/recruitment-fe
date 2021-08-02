@@ -6,8 +6,8 @@ import { Job } from '../../interfaces/Job';
 import { Helmet } from 'react-helmet';
 import { Button, CircularProgress } from '@material-ui/core';
 import { ViewParams } from '../../interfaces/General';
-import { Link } from "react-router-dom";
-import { Edit } from "@material-ui/icons";
+import { Link } from 'react-router-dom';
+import { Edit } from '@material-ui/icons';
 import { useStyles } from './Styles';
 
 export const JobView = () => {
