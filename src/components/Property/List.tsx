@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody, CircularProgress } from '@material-ui/core';
-import IconButton from "@material-ui/core/IconButton";
+import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useStyles } from "./Styles";
-import { Property, PropertiesState } from "../../interfaces/Property";
-import { fetchProperties } from "../../redux/reducers/PropertiesSlice";
+import { useStyles } from './Styles';
+import { Property, PropertiesState } from '../../interfaces/Property';
+import { fetchProperties } from '../../redux/reducers/PropertiesSlice';
 import Pagination from '@material-ui/lab/Pagination';
 
 export const PropertyList = () => {

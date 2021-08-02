@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { JobList, JobView } from "./components/Job";
-import { PropertyList, PropertyView } from "./components/Property";
-import { Navigation } from "./components/Navigation";
-import { AddEditJobView } from "./components/Job/Add";
+import { JobList, JobView } from './components/Job';
+import { PropertyList, PropertyView } from './components/Property';
+import { Navigation } from './components/Navigation';
+import { AddEditJobView } from './components/Job/Add';
 
 const App = () => (
   <Router>

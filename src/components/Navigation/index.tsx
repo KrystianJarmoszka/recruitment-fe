@@ -9,10 +9,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
-import { NavigationListItems } from "./NavigationListItems";
+import { NavigationListItems } from './NavigationListItems';
 import { useLocation } from 'react-router-dom'
-import { getPageTitle } from "../../utils/PageData";
-import { Helmet } from "react-helmet";
+import { getPageTitle } from '../../utils/PageData';
+import { Helmet } from 'react-helmet';
 
 const drawerWidth = 240;
 

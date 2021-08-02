@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { deleteJob } from "../../api";
-import { AxiosResponse } from "axios";
+import { deleteJob } from '../../api';
+import { AxiosResponse } from 'axios';
 import {
   TableContainer,
   Table,
@@ -12,15 +12,15 @@ import {
   TextField,
   MenuItem
 } from '@material-ui/core';
-import {Job, JobFilterParams, JobsState} from "../../interfaces/Job";
+import {Job, JobFilterParams, JobsState} from '../../interfaces/Job';
 import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from "@material-ui/core/IconButton";
+import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {fetchJobs, setKeyWord, setOrder} from "../../redux/reducers/JobsSlice";
-import { useStyles } from "./Styles";
-import Pagination from "@material-ui/lab/Pagination";
+import {fetchJobs, setKeyWord, setOrder} from '../../redux/reducers/JobsSlice';
+import { useStyles } from './Styles';
+import Pagination from '@material-ui/lab/Pagination';
 
 export const JobList = () => {
   const { items: jobs, page, pages, status, keyWord, order } = useSelector(

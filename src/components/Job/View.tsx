@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import { useParams } from "react-router";
-import { getJob } from "../../api";
-import { AxiosResponse } from "axios";
-import { Job } from "../../interfaces/Job";
-import { Helmet } from "react-helmet";
-import { CircularProgress } from "@material-ui/core";
-import { ViewParams } from "../../interfaces/General";
+import { useParams } from 'react-router';
+import { getJob } from '../../api';
+import { AxiosResponse } from 'axios';
+import { Job } from '../../interfaces/Job';
+import { Helmet } from 'react-helmet';
+import { CircularProgress } from '@material-ui/core';
+import { ViewParams } from '../../interfaces/General';
 
 export const JobView = () => {
   const { id } = useParams<ViewParams>();

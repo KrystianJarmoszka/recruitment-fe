@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit'
-import { JobFilterParams, JobsState } from "../../interfaces/Job";
-import { getJobs } from "../../api";
+import { JobFilterParams, JobsState } from '../../interfaces/Job';
+import { getJobs } from '../../api';
 
 const initialState: JobsState = {
   items: [],
