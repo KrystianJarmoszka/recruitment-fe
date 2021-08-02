@@ -7,6 +7,7 @@ export const useStyles = makeStyles({
     alignItems: 'center',
     height: '100%',
     flexDirection: 'column',
+    marginTop: '10px',
   },
   missingJobs: {
     height: '150px',
