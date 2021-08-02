@@ -4,18 +4,15 @@ import {JobForm, JobStatusForm } from '../../../interfaces/Job';
 import { ViewParams } from '../../../interfaces/General';
 import { JOB_STATUSES, STATUS_OPEN } from '../../../constants/JobStatuses';
 import { ErrorMessage } from 'formik';
-import {
-  Formik,
-  Form,
-  Field,
-} from 'formik';
+import { Formik, Form } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { PropertiesState, Property } from '../../../interfaces/Property';
 import { fetchProperties } from '../../../redux/reducers/PropertiesSlice';
 import {addJob, getJob, updateJob} from '../../../api';
 import { AxiosResponse } from 'axios';
-import { CircularProgress } from '@material-ui/core';
+import {Button, CircularProgress, MenuItem, TextField} from '@material-ui/core';
 import { JobSchema } from './Validator';
+import { useStyles } from '../Styles';
 
 export const AddEditJobView = () => {
   const { id } = useParams<ViewParams>();
@@ -32,6 +29,8 @@ export const AddEditJobView = () => {
   const [job, setJob] = useState<JobForm>(newJob);
   const [loading, setLoading] = useState<boolean>(true)
 
+  const classes = useStyles();
+
   useEffect(() => {
     getJob(id).then((response: AxiosResponse) => {
       if (response?.data) {
@@ -47,7 +46,6 @@ export const AddEditJobView = () => {
         setLoading(false);
       }
     }).catch(() => {
-      console.log('Something went wrong');
       setLoading(false);
     })
   }, []);
@@ -67,7 +65,7 @@ export const AddEditJobView = () => {
   }
 
   return (
-    <div>
+    <div className={classes.addEditContainer}>
       {id && <h1>Edit {job.summary}</h1>}
       {!id && <h1>Log job</h1>}
 
@@ -92,49 +90,67 @@ export const AddEditJobView = () => {
         }}
         validationSchema={JobSchema}
       >
-        {({ errors, touched }) => (
+        {({ values, handleChange }) => (
           <Form>
-            <div>
-              <label htmlFor="firstName">Summary</label>
-              <Field id="summary" name="summary" placeholder="Summary" />
+            <div className={classes.addEditFormField}>
+              <TextField placeholder="Summary" value={values.summary} onChange={handleChange} id="summary" label="Summary" />
               <div>
                 <ErrorMessage name="summary" />
               </div>
 
             </div>
-            <div>
-              <label htmlFor="description">Description</label>
-              <Field id="description" name="description" placeholder="Description" />
+            <div className={classes.addEditFormField}>
+              <TextField placeholder="Description" value={values.description} onChange={handleChange} id="description" label="Description" />
               <ErrorMessage name="description" />
             </div>
 
-            <div>
-              <Field as="select" name="status">
+            <div className={classes.addEditFormField}>
+              <TextField
+                id="status"
+                name="status"
+                select
+                label="Status"
+                value={values.status}
+                onChange={handleChange}
+              >
                 {JOB_STATUSES.map((status: JobStatusForm) => (
-                  <option value={status.value} key={status.value}>{status.label}</option>
-                ))}
-              </Field>
+                  <MenuItem key={status.value} value={status.value}>{status.label}</MenuItem>
+                  ))}
+              </TextField>
               <ErrorMessage name="status" />
             </div>
 
-            <div>
-              <label htmlFor="raisedBy">Raised by</label>
-              <Field id="raisedBy" name="raisedBy" placeholder="Raised by" />
+            <div className={classes.addEditFormField}>
+              <TextField placeholder="Raised by" value={values.raisedBy} onChange={handleChange} id="raisedBy" label="Raised by" />
               <ErrorMessage name="raisedBy" />
             </div>
 
-            <div>
-              <label htmlFor="property">Property</label>
-              <Field id="property" as="select" name="property">
-                <option>Chose property...</option>
+            <div className={classes.addEditFormField}>
+              <TextField
+                id="property"
+                name="property"
+                select
+                label="Property"
+                value={values.property}
+                onChange={handleChange}
+              >
                 {properties.map((property: Property) => (
-                  <option value={property.id} key={property.id}>{property.name}</option>
+                  <MenuItem key={property.id} value={property.id}>{property.name}</MenuItem>
                 ))}
-              </Field>
+              </TextField>
               <ErrorMessage name="property" />
             </div>
 
-            <button type="submit">Submit</button>
+            <div className={classes.addEditFormButton}>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                type="submit"
+              >
+                {id ? 'Edit job' : 'Add job'}
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>

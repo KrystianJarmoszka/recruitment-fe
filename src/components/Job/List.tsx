@@ -116,8 +116,8 @@ export const JobList = () => {
               onChange={handleOrderChange}
               helperText="Please select order direction"
             >
-              <MenuItem key={'newest'} value={'1'}>newest</MenuItem>
-              <MenuItem key={'oldest'} value={'-1'}>oldest</MenuItem>
+              <MenuItem key={'newest'} value={'-1'}>newest</MenuItem>
+              <MenuItem key={'oldest'} value={'1'}>oldest</MenuItem>
             </TextField>
           </form>
         </div>
