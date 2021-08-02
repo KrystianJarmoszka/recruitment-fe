@@ -15,7 +15,7 @@ export interface NewJob {
   description: string | '',
   status: 'open' | 'in_progress' | 'completed' | 'canceled',
   raised_by: string | '',
-  property: { id: number, name: string, } | null
+  property: { id: number, name: string, } | null,
 }
 
 export interface JobsState {
@@ -32,5 +32,5 @@ export interface JobsState {
 export interface JobFilterParams {
   page: number,
   summary?: string,
-  order?: string
+  order?: string,
 }
