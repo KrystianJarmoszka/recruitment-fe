@@ -1,8 +1,10 @@
+type Status = 'open' | 'in_progress' | 'completed' | 'canceled'
+
 export interface Job {
   id: number,
   summary: string,
   description: string,
-  status: 'open' | 'in_progress' | 'completed' | 'canceled',
+  status: Status,
   raised_by: string,
   property: {
     id: number,
@@ -10,12 +12,12 @@ export interface Job {
   }
 }
 
-export interface NewJob {
+export interface JobForm {
   summary: string | '',
   description: string | '',
-  status: 'open' | 'in_progress' | 'completed' | 'canceled',
-  raised_by: string | '',
-  property: { id: number, name: string, } | null,
+  status: Status,
+  raisedBy: string | '',
+  property: number | undefined
 }
 
 export interface JobsState {
@@ -33,4 +35,9 @@ export interface JobFilterParams {
   page: number,
   summary?: string,
   order?: string,
+}
+
+export interface JobStatusForm {
+  value: Status,
+  label: 'Open' | 'In progress' | 'Completed' | 'Canceled',
 }

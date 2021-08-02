@@ -13,5 +13,15 @@ export const useStyles = makeStyles({
     height: '150px',
     display: 'flex',
     alignItems: 'center',
+  },
+  addEditContainer: {
+    margin: '10px',
+  },
+  addEditFormField: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  addEditFormButton: {
+    marginTop: '15px',
   }
 });

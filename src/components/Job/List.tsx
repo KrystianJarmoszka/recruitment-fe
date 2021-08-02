@@ -10,7 +10,8 @@ import {
   TableBody,
   CircularProgress,
   TextField,
-  MenuItem
+  MenuItem,
+  Button
 } from '@material-ui/core';
 import {Job, JobFilterParams, JobsState} from '../../interfaces/Job';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -21,6 +22,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {fetchJobs, setKeyWord, setOrder} from '../../redux/reducers/JobsSlice';
 import { useStyles } from './Styles';
 import Pagination from '@material-ui/lab/Pagination';
+import { ControlPoint } from "@material-ui/icons";
 
 export const JobList = () => {
   const { items: jobs, page, pages, status, keyWord, order } = useSelector(
@@ -28,6 +30,7 @@ export const JobList = () => {
   );
   const [searchKeyWord, setSearchKeyWord] = useState<string>(keyWord);
   const [orderDirection, setOrderDirection] = useState<string>(order);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -40,7 +43,6 @@ export const JobList = () => {
     return () => clearTimeout(delayDebounceFn)
   }, [searchKeyWord])
 
-  const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
@@ -114,8 +116,8 @@ export const JobList = () => {
               onChange={handleOrderChange}
               helperText="Please select order direction"
             >
-              <MenuItem key={'newest'} value={'1'}>newest</MenuItem>
-              <MenuItem key={'oldest'} value={'-1'}>oldest</MenuItem>
+              <MenuItem key={'newest'} value={'-1'}>newest</MenuItem>
+              <MenuItem key={'oldest'} value={'1'}>oldest</MenuItem>
             </TextField>
           </form>
         </div>
@@ -123,6 +125,17 @@ export const JobList = () => {
         {jobs.length === 0 && (<div className={classes.missingJobs}>
           <span>No jobs found</span>
         </div>)}
+
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          component={Link}
+          to={`/job/add`}
+          startIcon={<ControlPoint />}
+        >
+          Log job
+        </Button>
       </div>
 
       {jobs.length > 0 && (<div>

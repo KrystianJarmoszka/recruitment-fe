@@ -10,7 +10,7 @@ const initialState: JobsState = {
   page: 1,
   pages: 1,
   keyWord: '',
-  order: '1',
+  order: '-1',
 }
 
 export const fetchJobs = createAsyncThunk('jobs/fetchJobs', async (params: JobFilterParams | undefined) => {
